@@ -20,3 +20,8 @@ func (t TagsRepositoryImpl) Save(tags model.Tags) {
 func (t TagsRepositoryImpl) Update(tags model.Tags) {
 	// t.Db.Model(&tags).Update()
 }
+
+func (t TagsRepositoryImpl) Delete(tagsId int) {
+	var tags model.Tags
+	t.Db.Where("id = ?", tagsId).Delete(&tags)
+}
