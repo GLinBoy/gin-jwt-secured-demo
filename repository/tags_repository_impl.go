@@ -37,3 +37,9 @@ func (t TagsRepositoryImpl) FindById(tagsId int) (model.Tags, error) {
 		return tag, errors.New("tag is not found")
 	}
 }
+
+func (t TagsRepositoryImpl) FindAll() []model.Tags {
+	var tags []model.Tags
+	t.Db.Find(&tags)
+	return tags
+}
