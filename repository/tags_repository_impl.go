@@ -3,6 +3,7 @@ package repository
 import (
 	"errors"
 
+	"github.com/glinboy/gin-jwt-secured-demo/data/request"
 	"github.com/glinboy/gin-jwt-secured-demo/model"
 	"gorm.io/gorm"
 )
@@ -17,7 +18,7 @@ func NewTagsRepositoryImpl(Db *gorm.DB) TagsRepository {
 
 func (t TagsRepositoryImpl) Save(tags model.Tags) {
 	result := t.Db.Create(&tags)
-if result.Error != nil {
+	if result.Error != nil {
 		panic(result.Error)
 	}
 }
@@ -35,7 +36,10 @@ func (t TagsRepositoryImpl) Update(tags model.Tags) {
 
 func (t TagsRepositoryImpl) Delete(tagsId int) {
 	var tags model.Tags
-	t.Db.Where("id = ?", tagsId).Delete(&tags)
+	result := t.Db.Where("id = ?", tagsId).Delete(&tags)
+	if result.Error != nil {
+		panic(result.Error)
+	}
 }
 
 func (t TagsRepositoryImpl) FindById(tagsId int) (model.Tags, error) {
@@ -50,6 +54,9 @@ func (t TagsRepositoryImpl) FindById(tagsId int) (model.Tags, error) {
 
 func (t TagsRepositoryImpl) FindAll() []model.Tags {
 	var tags []model.Tags
-	t.Db.Find(&tags)
+	result := t.Db.Find(&tags)
+	if result.Error != nil {
+		panic(result.Error)
+	}
 	return tags
 }
