@@ -1,11 +1,14 @@
 package service
 
-import "github.com/glinboy/gin-jwt-secured-demo/model"
+import (
+	"github.com/glinboy/gin-jwt-secured-demo/data/request"
+	"github.com/glinboy/gin-jwt-secured-demo/data/response"
+)
 
 type TagsService interface {
-	Create(tags model.Tags)
-	Update(tags model.Tags)
+	Create(tags request.CreateTagsRequest)
+	Update(tags request.UpdateTagsRequest)
 	Delete(tagsId int)
-	FindById(tagsId int) model.Tags
-	FindAll() []model.Tags
+	FindById(tagsId int) response.TagsResponse
+	FindAll() []response.TagsResponse
 }
