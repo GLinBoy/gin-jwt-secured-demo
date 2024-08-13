@@ -16,7 +16,10 @@ func NewTagsRepositoryImpl(Db *gorm.DB) TagsRepository {
 }
 
 func (t TagsRepositoryImpl) Save(tags model.Tags) {
-	t.Db.Create(&tags)
+	result := t.Db.Create(&tags)
+if result.Error != nil {
+		panic(result.Error)
+	}
 }
 
 func (t TagsRepositoryImpl) Update(tags model.Tags) {
