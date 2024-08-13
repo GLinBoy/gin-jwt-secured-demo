@@ -23,7 +23,14 @@ if result.Error != nil {
 }
 
 func (t TagsRepositoryImpl) Update(tags model.Tags) {
-	// t.Db.Model(&tags).Update()
+	var updateTag = request.UpdateTagsRequest{
+		Id:   tags.Id,
+		Name: tags.Name,
+	}
+	result := t.Db.Model(&tags).Updates(updateTag)
+	if result.Error != nil {
+		panic(result.Error)
+	}
 }
 
 func (t TagsRepositoryImpl) Delete(tagsId int) {
