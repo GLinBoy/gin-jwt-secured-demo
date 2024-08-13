@@ -9,3 +9,10 @@ type TagsServiceImpl struct {
 	TagsRepository repository.TagsRepository
 	Validate       *validator.Validate
 }
+
+func NewTagServiceImpl(tagRepository repository.TagsRepository, valitate *validator.Validate) TagsService {
+	return &TagsServiceImpl{
+		TagsRepository: tagRepository,
+		Validate:       valitate,
+	}
+}
