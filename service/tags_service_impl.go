@@ -2,6 +2,7 @@ package service
 
 import (
 	"github.com/glinboy/gin-jwt-secured-demo/data/request"
+	"github.com/glinboy/gin-jwt-secured-demo/data/response"
 	"github.com/glinboy/gin-jwt-secured-demo/model"
 	"github.com/glinboy/gin-jwt-secured-demo/repository"
 	"github.com/go-playground/validator/v10"
@@ -41,4 +42,16 @@ func (t TagsServiceImpl) Update(tag request.UpdateTagsRequest) {
 
 func (t TagsServiceImpl) Delete(tagId int) {
 	t.TagsRepository.Delete(tagId)
+}
+
+func (t TagsServiceImpl) FindById(tagId int) response.TagsResponse {
+	tagData, err := t.TagsRepository.FindById(tagId)
+	if err != nil {
+		panic(err)
+	}
+	tagResponse := response.TagsResponse{
+		Id:   tagData.Id,
+		Name: tagData.Name,
+	}
+	return tagResponse
 }
