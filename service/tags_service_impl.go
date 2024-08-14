@@ -1,6 +1,8 @@
 package service
 
 import (
+	"github.com/glinboy/gin-jwt-secured-demo/data/request"
+	"github.com/glinboy/gin-jwt-secured-demo/model"
 	"github.com/glinboy/gin-jwt-secured-demo/repository"
 	"github.com/go-playground/validator/v10"
 )
@@ -15,4 +17,15 @@ func NewTagServiceImpl(tagRepository repository.TagsRepository, valitate *valida
 		TagsRepository: tagRepository,
 		Validate:       valitate,
 	}
+}
+
+func (t TagsServiceImpl) Create(tag request.CreateTagsRequest) {
+	err := t.Validate.Struct(tag)
+	if err != nil {
+		panic(err)
+	}
+	tagModel := model.Tags{
+		Name: tag.Name,
+	}
+	t.TagsRepository.Save(tagModel)
 }
