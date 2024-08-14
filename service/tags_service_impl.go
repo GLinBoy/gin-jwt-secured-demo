@@ -55,3 +55,16 @@ func (t TagsServiceImpl) FindById(tagId int) response.TagsResponse {
 	}
 	return tagResponse
 }
+
+func (t TagsServiceImpl) FindAll() []response.TagsResponse {
+	result := t.TagsRepository.FindAll()
+	var tags []response.TagsResponse
+	for _, value := range result {
+		tag := response.TagsResponse{
+			Id:   value.Id,
+			Name: value.Name,
+		}
+		tags = append(tags, tag)
+	}
+	return tags
+}
