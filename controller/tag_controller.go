@@ -2,6 +2,7 @@ package controller
 
 import (
 	"net/http"
+	"strconv"
 
 	"github.com/gin-gonic/gin"
 	"github.com/glinboy/gin-jwt-secured-demo/data/request"
@@ -25,6 +26,27 @@ func (controller *TagController) Create(ctx *gin.Context) {
 	}
 	controller.tagService.Create(createTagRequest)
 
+	webResponse := response.Response{
+		Code:   200,
+		Status: "Ok",
+		Data:   nil,
+	}
+	ctx.JSON(http.StatusOK, webResponse)
+}
+
+func (controller TagController) Update(ctx *gin.Context) {
+	updateTagRequest := request.UpdateTagsRequest{}
+	err := ctx.ShouldBindJSON(&updateTagRequest)
+	if err != nil {
+		panic(err)
+	}
+	tagId := ctx.Param("tagId")
+	id, err := strconv.Atoi(tagId)
+	if err != nil {
+		panic(err)
+	}
+	updateTagRequest.Id = id
+	controller.tagService.Update(updateTagRequest)
 	webResponse := response.Response{
 		Code:   200,
 		Status: "Ok",
