@@ -29,3 +29,12 @@ func (t TagsServiceImpl) Create(tag request.CreateTagsRequest) {
 	}
 	t.TagsRepository.Save(tagModel)
 }
+
+func (t TagsServiceImpl) Update(tag request.UpdateTagsRequest) {
+	tagData, err := t.TagsRepository.FindById(tag.Id)
+	if err != nil {
+		panic(err)
+	}
+	tagData.Name = tag.Name
+	t.TagsRepository.Update(tagData)
+}
