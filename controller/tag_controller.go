@@ -54,3 +54,18 @@ func (controller TagController) Update(ctx *gin.Context) {
 	}
 	ctx.JSON(http.StatusOK, webResponse)
 }
+
+func (controller *TagController) Delete(ctx *gin.Context) {
+	tagId := ctx.Param("tagId")
+	id, err := strconv.Atoi(tagId)
+	if err != nil {
+		panic(err)
+	}
+	controller.tagService.Delete(id)
+	webResponse := response.Response{
+		Code:   200,
+		Status: "Ok",
+		Data:   nil,
+	}
+	ctx.JSON(http.StatusOK, webResponse)
+}
