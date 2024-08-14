@@ -38,3 +38,7 @@ func (t TagsServiceImpl) Update(tag request.UpdateTagsRequest) {
 	tagData.Name = tag.Name
 	t.TagsRepository.Update(tagData)
 }
+
+func (t TagsServiceImpl) Delete(tagId int) {
+	t.TagsRepository.Delete(tagId)
+}
