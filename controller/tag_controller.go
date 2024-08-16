@@ -69,3 +69,19 @@ func (controller *TagController) Delete(ctx *gin.Context) {
 	}
 	ctx.JSON(http.StatusOK, webResponse)
 }
+
+func (controller *TagController) FindById(ctx *gin.Context) {
+	tagId := ctx.Param("tagId")
+	id, err := strconv.Atoi(tagId)
+	if err != nil {
+		panic(err)
+	}
+	tagResponse := controller.tagService.FindById(id)
+	webResponse := response.Response{
+		Code:   200,
+		Status: "Ok",
+		Data:   tagResponse,
+	}
+	ctx.Header("Content-Type", "application/json")
+	ctx.JSON(http.StatusOK, webResponse)
+}
