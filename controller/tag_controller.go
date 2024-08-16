@@ -85,3 +85,14 @@ func (controller *TagController) FindById(ctx *gin.Context) {
 	ctx.Header("Content-Type", "application/json")
 	ctx.JSON(http.StatusOK, webResponse)
 }
+
+func (controller *TagController) FindAll(ctx *gin.Context) {
+	tagResponse := controller.tagService.FindAll()
+	webResponse := response.Response{
+		Code:   200,
+		Status: "Ok",
+		Data:   tagResponse,
+	}
+	ctx.Header("Content-Type", "application/json")
+	ctx.JSON(http.StatusOK, webResponse)
+}
