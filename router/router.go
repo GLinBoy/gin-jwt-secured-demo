@@ -1,13 +1,15 @@
 package router
 
 import (
+	"net/http"
+
 	"github.com/gin-gonic/gin"
 	"github.com/glinboy/gin-jwt-secured-demo/controller"
 )
 
 func NewRouter(tagController *controller.TagController) *gin.Engine {
 	service := gin.Default()
-service.GET("", func(ctx *gin.Context) {
+	service.GET("", func(ctx *gin.Context) {
 		ctx.JSON(http.StatusOK, "Welcome Home!")
 	})
 
