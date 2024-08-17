@@ -32,3 +32,11 @@ func (u UserRepositoryImpl) Update(user model.User) {
 		panic(result.Error)
 	}
 }
+
+func (u UserRepositoryImpl) Delete(userId int) {
+	var user model.User
+	result := u.Db.Where("id = ?").Delete(&user)
+	if result.Error != nil {
+		panic(result.Error)
+	}
+}
