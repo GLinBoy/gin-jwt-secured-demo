@@ -1,6 +1,7 @@
 package repository
 
 import (
+	"github.com/glinboy/gin-jwt-secured-demo/data/request"
 	"github.com/glinboy/gin-jwt-secured-demo/model"
 	"gorm.io/gorm"
 )
@@ -15,6 +16,18 @@ func NewUserRepositoryImpl(Db *gorm.DB) UserRepository {
 
 func (u UserRepositoryImpl) Save(user model.User) {
 	result := u.Db.Create(&user)
+	if result.Error != nil {
+		panic(result.Error)
+	}
+}
+
+func (u UserRepositoryImpl) Update(user model.User) {
+	var updateUser = request.UpdateUserRequest{
+		Id:       user.Id,
+		FullName: user.FullName,
+		Password: user.Password,
+	}
+	result := u.Db.Model(&user).Updates(updateUser)
 	if result.Error != nil {
 		panic(result.Error)
 	}
