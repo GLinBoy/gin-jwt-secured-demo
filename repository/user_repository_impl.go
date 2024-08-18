@@ -1,6 +1,8 @@
 package repository
 
 import (
+	"errors"
+
 	"github.com/glinboy/gin-jwt-secured-demo/data/request"
 	"github.com/glinboy/gin-jwt-secured-demo/model"
 	"gorm.io/gorm"
@@ -38,5 +40,15 @@ func (u UserRepositoryImpl) Delete(userId int) {
 	result := u.Db.Where("id = ?").Delete(&user)
 	if result.Error != nil {
 		panic(result.Error)
+	}
+}
+
+func (u UserRepositoryImpl) FindById(userId int) (model.User, error) {
+	var user model.User
+	result := u.Db.Find(&user, userId)
+	if result != nil {
+		return user, nil
+	} else {
+		return user, errors.New("user is not found")
 	}
 }
