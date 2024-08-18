@@ -52,3 +52,13 @@ func (u UserRepositoryImpl) FindById(userId int) (model.User, error) {
 		return user, errors.New("user is not found")
 	}
 }
+
+func (u UserRepositoryImpl) FindByEmail(email string) (model.User, error) {
+	var user model.User
+	result := u.Db.Find(&user, email)
+	if result != nil {
+		return user, nil
+	} else {
+		return user, errors.New("user is not found")
+	}
+}
