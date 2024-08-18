@@ -35,14 +35,6 @@ func (u UserRepositoryImpl) Update(user model.User) {
 	}
 }
 
-func (u UserRepositoryImpl) Delete(userId int) {
-	var user model.User
-	result := u.Db.Where("id = ?").Delete(&user)
-	if result.Error != nil {
-		panic(result.Error)
-	}
-}
-
 func (u UserRepositoryImpl) FindById(userId int) (model.User, error) {
 	var user model.User
 	result := u.Db.Find(&user, userId)
