@@ -1,6 +1,8 @@
 package service
 
+import "github.com/glinboy/gin-jwt-secured-demo/data/request"
+
 type UserService interface {
-	Signup()
+	Signup(user request.CreateUserRequest)
 	Signin()
 }
