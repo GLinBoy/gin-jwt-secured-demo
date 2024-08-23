@@ -1,6 +1,6 @@
 package response
 
 type TokenResponse struct {
-	Sub string `json:"sub"`
-	Exp int64  `json:"exp"`
+	Token      string `json:"token"`
+	Expiration int64  `json:"exp"`
 }
