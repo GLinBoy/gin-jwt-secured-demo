@@ -47,7 +47,7 @@ func (u UserRepositoryImpl) FindById(userId int) (model.User, error) {
 
 func (u UserRepositoryImpl) FindByEmail(email string) (model.User, error) {
 	var user model.User
-	result := u.Db.Find(&user, email)
+	result := u.Db.First(&user, "email = ?", email)
 	if result != nil {
 		return user, nil
 	} else {
