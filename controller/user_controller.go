@@ -40,12 +40,12 @@ func (c *UserController) Signin(ctx *gin.Context) {
 	if err != nil {
 		panic(err)
 	}
-	c.userService.Signin(signinRequest)
+	tokenResponse := c.userService.Signin(signinRequest)
 
 	webResponse := response.Response{
 		Code:   200,
 		Status: "Ok",
-		Data:   signinRequest,
+		Data:   tokenResponse,
 	}
 	ctx.Header("Content-Type", "application/json")
 	ctx.JSON(http.StatusOK, webResponse)
