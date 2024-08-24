@@ -33,3 +33,20 @@ func (c *UserController) Signup(ctx *gin.Context) {
 	}
 	ctx.JSON(http.StatusOK, webResponse)
 }
+
+func (c *UserController) Signin(ctx *gin.Context) {
+	signinRequest := request.SigninRequest{}
+	err := ctx.ShouldBindJSON(&signinRequest)
+	if err != nil {
+		panic(err)
+	}
+	c.userService.Signin(signinRequest)
+
+	webResponse := response.Response{
+		Code:   200,
+		Status: "Ok",
+		Data:   signinRequest,
+	}
+	ctx.Header("Content-Type", "application/json")
+	ctx.JSON(http.StatusOK, webResponse)
+}
