@@ -18,7 +18,7 @@ func main() {
 	validate := validator.New()
 
 	db.Table("tags").AutoMigrate(&model.Tags{})
-	db.Table("user").AutoMigrate(&model.User{})
+	db.Table("users").AutoMigrate(&model.User{})
 
 	tagRepository := repository.NewTagsRepositoryImpl(db)
 	userRepository := repository.NewUserRepositoryImpl(db)
