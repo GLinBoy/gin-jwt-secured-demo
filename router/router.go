@@ -5,6 +5,7 @@ import (
 
 	"github.com/gin-gonic/gin"
 	"github.com/glinboy/gin-jwt-secured-demo/controller"
+	"github.com/glinboy/gin-jwt-secured-demo/middleware"
 )
 
 func NewRouter(tagController *controller.TagController,
@@ -20,11 +21,11 @@ func NewRouter(tagController *controller.TagController,
 
 	router := service.Group("/api")
 	tagRouter := router.Group("/tag")
-	tagRouter.GET("", tagController.FindAll)
-	tagRouter.GET("/:tagId", tagController.FindById)
-	tagRouter.POST("", tagController.Create)
-	tagRouter.PATCH("/:tagId", tagController.Update)
-	tagRouter.DELETE("/:tagId", tagController.Delete)
+	tagRouter.GET("", middleware.RequireAuth, tagController.FindAll)
+	tagRouter.GET("/:tagId", middleware.RequireAuth, tagController.FindById)
+	tagRouter.POST("", middleware.RequireAuth, tagController.Create)
+	tagRouter.PATCH("/:tagId", middleware.RequireAuth, tagController.Update)
+	tagRouter.DELETE("/:tagId", middleware.RequireAuth, tagController.Delete)
 
 	authRouter := router.Group("/auth")
 	authRouter.POST("/signin", userController.Signin)
