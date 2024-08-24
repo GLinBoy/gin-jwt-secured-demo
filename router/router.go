@@ -7,7 +7,8 @@ import (
 	"github.com/glinboy/gin-jwt-secured-demo/controller"
 )
 
-func NewRouter(tagController *controller.TagController) *gin.Engine {
+func NewRouter(tagController *controller.TagController,
+	userController *controller.UserController) *gin.Engine {
 	service := gin.Default()
 	service.GET("", func(ctx *gin.Context) {
 		ctx.JSON(http.StatusOK, "Welcome Home!")
@@ -24,6 +25,10 @@ func NewRouter(tagController *controller.TagController) *gin.Engine {
 	tagRouter.POST("", tagController.Create)
 	tagRouter.PATCH("/:tagId", tagController.Update)
 	tagRouter.DELETE("/:tagId", tagController.Delete)
+
+	authRouter := router.Group("/auth")
+	authRouter.POST("/signin", userController.Signin)
+	authRouter.POST("/signup", userController.Signup)
 
 	return service
 }
